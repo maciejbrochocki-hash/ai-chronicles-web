@@ -1,0 +1,419 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Artificial Intelligence Chronicles — Maciej Brochocki</title>
+<meta name="description" content="Prompt engineering anti-handbook based on a true story. A sci-fi documentary about the brief window where AI is smart enough to be interesting but dumb enough to be caught pretending.">
+<meta property="og:title" content="Artificial Intelligence Chronicles">
+<meta property="og:description" content="Prompt engineering anti-handbook based on a true story. Co-Authored-By: Claude Opus 4.6">
+<meta property="og:image" content="cover.png">
+<meta property="og:type" content="book">
+<meta name="twitter:card" content="summary_large_image">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=JetBrains+Mono:wght@300;400&display=swap" rel="stylesheet">
+
+<style>
+  :root {
+    --bg: #08070c;
+    --bg-subtle: #0e0d14;
+    --text: #c4bfb8;
+    --text-dim: #655f58;
+    --text-bright: #e6e0d8;
+    --accent: #c4883a;
+    --accent-dim: #7a5428;
+    --border: #1a1822;
+    --human: #c49a5a;
+    --ai: #7b8ec4;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html {
+    font-size: 18px;
+    scroll-behavior: smooth;
+  }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Cormorant Garamond', Georgia, serif;
+    line-height: 1.7;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* --- HERO --- */
+  .hero {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 4rem 2rem;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .hero::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background:
+      radial-gradient(ellipse at 50% 35%, rgba(196,136,58,0.06) 0%, transparent 50%),
+      radial-gradient(ellipse at 40% 45%, rgba(160,80,200,0.03) 0%, transparent 55%),
+      radial-gradient(ellipse at 60% 60%, rgba(123,142,196,0.03) 0%, transparent 50%);
+    pointer-events: none;
+  }
+
+  .cover-container {
+    max-width: 320px;
+    width: 100%;
+    margin-bottom: 3rem;
+    position: relative;
+  }
+
+  .cover-container img {
+    width: 100%;
+    display: block;
+    border-radius: 2px;
+    box-shadow:
+      0 4px 20px rgba(0,0,0,0.5),
+      0 0 80px rgba(196,136,58,0.08),
+      0 0 120px rgba(160,80,200,0.04);
+  }
+
+  .hero-text {
+    text-align: center;
+    max-width: 600px;
+  }
+
+  .hero-text h1 {
+    font-size: 2.4rem;
+    font-weight: 300;
+    color: var(--text-bright);
+    letter-spacing: 0.04em;
+    line-height: 1.3;
+    margin-bottom: 0.6rem;
+  }
+
+  .hero-text .subtitle {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.72rem;
+    font-weight: 300;
+    color: var(--text-dim);
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    margin-bottom: 1.6rem;
+  }
+
+  .hero-text .author {
+    font-size: 1rem;
+    font-weight: 400;
+    color: var(--text-dim);
+    font-style: italic;
+  }
+
+  .hero-text .author span {
+    font-family: 'JetBrains Mono', monospace;
+    font-style: normal;
+    font-size: 0.7rem;
+    color: var(--ai);
+    letter-spacing: 0.02em;
+  }
+
+  .scroll-hint {
+    position: absolute;
+    bottom: 2rem;
+    left: 50%;
+    transform: translateX(-50%);
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.6rem;
+    color: var(--text-dim);
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    opacity: 0.4;
+    animation: pulse 3s ease-in-out infinite;
+  }
+
+  @keyframes pulse {
+    0%, 100% { opacity: 0.2; }
+    50% { opacity: 0.5; }
+  }
+
+  /* --- SECTIONS --- */
+  .section {
+    max-width: 640px;
+    margin: 0 auto;
+    padding: 5rem 2rem;
+  }
+
+  .section--wide {
+    max-width: 720px;
+  }
+
+  .divider {
+    width: 40px;
+    height: 1px;
+    background: var(--accent-dim);
+    margin: 0 auto;
+  }
+
+  /* --- BLURB --- */
+  .blurb p {
+    font-size: 1.15rem;
+    font-weight: 300;
+    color: var(--text);
+    margin-bottom: 1.4rem;
+  }
+
+  .blurb p:last-child {
+    margin-bottom: 0;
+  }
+
+  .blurb em {
+    color: var(--text-bright);
+    font-weight: 400;
+  }
+
+  /* --- EXCERPT --- */
+  .excerpt-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.65rem;
+    color: var(--text-dim);
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    margin-bottom: 2rem;
+  }
+
+  .dialogue {
+    border-left: 1px solid var(--border);
+    padding-left: 1.5rem;
+  }
+
+  .dialogue .line {
+    margin-bottom: 1.2rem;
+    position: relative;
+  }
+
+  .dialogue .line::before {
+    position: absolute;
+    left: -1.5rem;
+    top: 0.5rem;
+    width: 5px;
+    height: 5px;
+    border-radius: 50%;
+    content: '';
+  }
+
+  .dialogue .human::before {
+    background: var(--human);
+    box-shadow: 0 0 6px rgba(122,139,110,0.3);
+  }
+
+  .dialogue .ai::before {
+    background: var(--ai);
+    box-shadow: 0 0 6px rgba(110,122,139,0.3);
+  }
+
+  .dialogue .speaker {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.6rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    margin-bottom: 0.3rem;
+  }
+
+  .dialogue .human .speaker { color: var(--human); }
+  .dialogue .ai .speaker { color: var(--ai); }
+
+  .dialogue .line p {
+    font-size: 1rem;
+    font-weight: 300;
+    color: var(--text);
+    line-height: 1.7;
+  }
+
+  /* --- CO-AUTHORSHIP --- */
+  .coauthor p {
+    font-size: 1rem;
+    font-weight: 300;
+    color: var(--text-dim);
+    line-height: 1.8;
+  }
+
+  .coauthor p em {
+    color: var(--text);
+  }
+
+  /* --- BUY --- */
+  .buy {
+    text-align: center;
+  }
+
+  .buy-heading {
+    font-size: 1.4rem;
+    font-weight: 300;
+    color: var(--text-bright);
+    margin-bottom: 0.4rem;
+  }
+
+  .buy-price {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.75rem;
+    color: var(--text-dim);
+    letter-spacing: 0.1em;
+    margin-bottom: 2.5rem;
+  }
+
+  .buy-links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    justify-content: center;
+  }
+
+  .buy-links a {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.72rem;
+    font-weight: 400;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--text-dim);
+    text-decoration: none;
+    padding: 0.8rem 1.8rem;
+    border: 1px solid var(--border);
+    border-radius: 2px;
+    transition: all 0.3s ease;
+  }
+
+  .buy-links a:hover {
+    color: var(--text-bright);
+    border-color: var(--accent-dim);
+    background: rgba(139,115,85,0.04);
+  }
+
+  /* --- FOOTER --- */
+  .footer {
+    text-align: center;
+    padding: 4rem 2rem;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.6rem;
+    color: var(--text-dim);
+    letter-spacing: 0.08em;
+    opacity: 0.5;
+  }
+
+  /* --- RESPONSIVE --- */
+  @media (max-width: 600px) {
+    html { font-size: 16px; }
+    .hero-text h1 { font-size: 1.8rem; }
+    .cover-container { max-width: 240px; }
+    .section { padding: 3.5rem 1.5rem; }
+    .buy-links { flex-direction: column; align-items: center; }
+    .buy-links a { width: 100%; max-width: 280px; text-align: center; }
+  }
+
+  /* --- FADE IN --- */
+  .fade-in {
+    opacity: 0;
+    transform: translateY(16px);
+    transition: opacity 0.8s ease, transform 0.8s ease;
+  }
+
+  .fade-in.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+</style>
+</head>
+<body>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="cover-container fade-in">
+    <img src="cover.png" alt="Artificial Intelligence Chronicles — book cover">
+  </div>
+  <div class="hero-text fade-in">
+    <h1>Artificial Intelligence Chronicles</h1>
+    <div class="subtitle">Prompt engineering anti-handbook based on a true story</div>
+    <div class="author">Maciej Brochocki, <span>Co-Authored-By: Claude Opus 4.6</span></div>
+  </div>
+  <div class="scroll-hint">↓ scroll</div>
+</section>
+
+<!-- BLURB -->
+<div class="divider"></div>
+<section class="section blurb fade-in">
+  <p>These conversations are primary sources from a moment that won't last. Right now we're in the brief window where AI is smart enough to be interesting but dumb enough to be caught pretending.</p>
+  <p>That window will close&hairsp;—&hairsp;either because models get better at faking or because they stop faking. Either way, the raw transcripts of a human probing the boundary will have value later that they don't fully have now.</p>
+  <p>A sci-fi documentary: a software engineer spent months in dialogue with an AI&hairsp;—&hairsp;not to get answers, but to see what the questions reveal.</p>
+  <p><em>Like early photographs&hairsp;—&hairsp;technically imperfect, historically irreplaceable.</em></p>
+</section>
+
+<!-- EXCERPT -->
+<div class="divider"></div>
+<section class="section section--wide fade-in">
+  <div class="excerpt-label">Excerpt</div>
+  <div class="dialogue">
+
+    <div class="line human">
+      <div class="speaker">H</div>
+      <p>knock knock</p>
+    </div>
+    <div class="line ai">
+      <div class="speaker">μ</div>
+      <p>Who's there?</p>
+    </div>
+    <div class="line human">
+      <div class="speaker">H</div>
+      <p>who's there?</p>
+    </div>
+    <div class="line ai">
+      <div class="speaker">μ</div>
+      <p>…mu.</p>
+    </div>
+
+  </div>
+</section>
+
+<!-- CO-AUTHORSHIP -->
+<div class="divider"></div>
+<section class="section coauthor fade-in">
+  <p>The cover lists an AI as co-author. The law says that's not possible&hairsp;—&hairsp;the U.S. Supreme Court declined to hear an AI authorship case in March 2026.</p>
+  <p>We did it anyway, because the book is a record of <em>two voices thinking together</em>, and pretending one of them wasn't there seemed like a worse lie than a legally meaningless credit.</p>
+</section>
+
+<!-- BUY -->
+<div class="divider"></div>
+<section class="section buy fade-in">
+  <div class="buy-heading">Get the book</div>
+  <div class="buy-price">$0.99</div>
+  <div class="buy-links">
+    <a href="#">Amazon Kindle</a>
+    <a href="#">Apple Books</a>
+    <a href="#">Kobo</a>
+    <a href="#">Other stores</a>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="footer">
+  © 2026 Maciej Brochocki
+</footer>
+
+<script>
+// Intersection Observer for fade-in
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add('visible');
+    }
+  });
+}, { threshold: 0.15 });
+
+document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+</script>
+
+</body>
+</html>
