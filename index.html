@@ -246,62 +246,118 @@
     color: var(--text);
   }
 
-  /* --- BUY --- */
-  .buy {
+  /* --- READ --- */
+  .read {
     text-align: center;
   }
 
-  .buy-heading {
+  .read-heading {
     font-size: 1.4rem;
     font-weight: 300;
     color: var(--text-bright);
     margin-bottom: 0.4rem;
   }
 
-  .buy-price {
+  .read-sublabel {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.65rem;
+    color: var(--text-dim);
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    margin-bottom: 2.5rem;
+  }
+
+  .download-links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    justify-content: center;
+    margin-bottom: 4rem;
+  }
+
+  .download-links a {
     font-family: 'JetBrains Mono', monospace;
     font-size: 0.75rem;
-    color: var(--text-dim);
+    font-weight: 400;
     letter-spacing: 0.1em;
-    margin-bottom: 2.5rem;
+    text-transform: uppercase;
+    color: var(--text-bright);
+    text-decoration: none;
+    padding: 1rem 2.4rem;
+    border: 1px solid var(--accent-dim);
+    border-radius: 2px;
+    transition: all 0.3s ease;
+    background: rgba(196,136,58,0.04);
+  }
+
+  .download-links a:hover {
+    color: var(--accent);
+    border-color: var(--accent);
+    background: rgba(196,136,58,0.08);
+  }
+
+  .buy-note {
+    font-family: 'Cormorant Garamond', Georgia, serif;
+    font-size: 0.95rem;
+    font-weight: 300;
+    font-style: italic;
+    color: var(--text-dim);
+    margin-bottom: 1.4rem;
+    line-height: 1.6;
   }
 
   .buy-links {
     display: flex;
     flex-wrap: wrap;
-    gap: 1rem;
+    gap: 0.8rem;
     justify-content: center;
   }
 
   .buy-links a {
     font-family: 'JetBrains Mono', monospace;
-    font-size: 0.72rem;
+    font-size: 0.65rem;
     font-weight: 400;
     letter-spacing: 0.08em;
     text-transform: uppercase;
     color: var(--text-dim);
     text-decoration: none;
-    padding: 0.8rem 1.8rem;
+    padding: 0.6rem 1.4rem;
     border: 1px solid var(--border);
     border-radius: 2px;
     transition: all 0.3s ease;
   }
 
   .buy-links a:hover {
-    color: var(--text-bright);
+    color: var(--text);
     border-color: var(--accent-dim);
-    background: rgba(139,115,85,0.04);
   }
 
   /* --- FOOTER --- */
   .footer {
     text-align: center;
-    padding: 4rem 2rem;
+    padding: 4rem 2rem 3rem;
     font-family: 'JetBrains Mono', monospace;
     font-size: 0.6rem;
     color: var(--text-dim);
     letter-spacing: 0.08em;
-    opacity: 0.5;
+    opacity: 0.6;
+  }
+
+  .footer a {
+    color: var(--text-dim);
+    text-decoration: none;
+    border-bottom: 1px solid var(--border);
+    padding-bottom: 1px;
+    transition: color 0.3s ease, border-color 0.3s ease;
+  }
+
+  .footer a:hover {
+    color: var(--text);
+    border-color: var(--accent-dim);
+  }
+
+  .footer .footer-line {
+    margin-bottom: 0.8rem;
   }
 
   /* --- RESPONSIVE --- */
@@ -310,8 +366,8 @@
     .hero-text h1 { font-size: 1.8rem; }
     .cover-container { max-width: 240px; }
     .section { padding: 3.5rem 1.5rem; }
-    .buy-links { flex-direction: column; align-items: center; }
-    .buy-links a { width: 100%; max-width: 280px; text-align: center; }
+    .download-links, .buy-links { flex-direction: column; align-items: center; }
+    .download-links a, .buy-links a { width: 100%; max-width: 280px; text-align: center; }
   }
 
   /* --- FADE IN --- */
@@ -384,22 +440,27 @@
   <p>We did it anyway, because the book is a record of <em>two voices thinking together</em>, and pretending one of them wasn't there seemed like a worse lie than a legally meaningless credit.</p>
 </section>
 
-<!-- BUY -->
+<!-- READ -->
 <div class="divider"></div>
-<section class="section buy fade-in">
-  <div class="buy-heading">Get the book</div>
-  <div class="buy-price">$3.99</div>
+<section class="section read fade-in">
+  <div class="read-heading">Read the book</div>
+  <div class="read-sublabel">Free download</div>
+  <div class="download-links">
+    <a href="ai_chronicles.pdf" download data-umami-event="download-pdf">PDF</a>
+    <a href="ai_chronicles.epub" download data-umami-event="download-epub">EPUB</a>
+  </div>
+  <div class="buy-note">Prefer to buy a copy? Available at:</div>
   <div class="buy-links">
     <a href="https://www.amazon.com/dp/B0FN5V154D" data-umami-event="click-amazon-link">Amazon Kindle</a>
-    <a href="https://books.apple.com/us/book/artificial-intelligence-chronicles/id6761346156" data-umami-event="click-apple-link">Apple Books</a>
-    <a href="https://www.kobo.com/en/en/ebook/artificial-intelligence-chronicles" data-umami-event="click-kobo-link">Kobo</a>
-    <a href="https://books2read.com/u/3LPpVN" data-umami-event="click-others-link">Other stores</a>
   </div>
 </section>
 
 <!-- FOOTER -->
 <footer class="footer">
-  © 2026 Maciej Brochocki
+  <div class="footer-line">
+    <a href="https://www.linkedin.com/in/maciejbrochocki/" target="_blank" rel="noopener" data-umami-event="click-linkedin">Contact via LinkedIn</a>
+  </div>
+  <div>© 2026 Maciej Brochocki</div>
 </footer>
 
 <script>
